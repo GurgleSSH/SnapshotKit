@@ -32,36 +32,12 @@ extension UIView: SnapshotKitProtocol {
         var backgroundColor = self.backgroundColor ?? UIColor.white
         // 若View为非透明且无圆角，则创建非透明的画布
         // 非透明的画布渲染速度比透明的画布要快
-//        let opaqueCanvas = (self.isOpaque && self.layer.cornerRadius == 0)
-        
-        //ls add
-        let opaqueCanvas = false
+        let opaqueCanvas = (self.isOpaque && self.layer.cornerRadius == 0)
         
         // 对于透明的画布，使用白色作为底色
         if opaqueCanvas == false {
             backgroundColor = UIColor.white
         }
-
-//        let contentSize = CGSize.init(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
-//        UIGraphicsBeginImageContextWithOptions(contentSize, opaqueCanvas, 0)
-//
-//        guard let context = UIGraphicsGetCurrentContext() else {
-//            return nil
-//        }
-//
-//        context.saveGState()
-//        context.clear(croppingRect)
-//        context.setFillColor(backgroundColor.cgColor)
-//        context.fill(croppingRect)
-//        context.translateBy(x: -croppingRect.origin.x, y: -croppingRect.origin.y)
-////        self.layer.render(in: context)
-//        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
-//        context.restoreGState()
-//
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//
-//        return image
         
         let contentSize = CGSize(
             width: floor(croppingRect.size.width),
