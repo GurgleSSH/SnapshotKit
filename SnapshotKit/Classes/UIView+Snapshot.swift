@@ -32,10 +32,10 @@ extension UIView: SnapshotKitProtocol {
         var backgroundColor = self.backgroundColor ?? UIColor.white
         // 若View为非透明且无圆角，则创建非透明的画布
         // 非透明的画布渲染速度比透明的画布要快
-        let opaqueCanvas = (self.isOpaque && self.layer.cornerRadius == 0)
+//        let opaqueCanvas = (self.isOpaque && self.layer.cornerRadius == 0)
         
         //ls add
-        opaqueCanvas = false
+        let opaqueCanvas = false
         
         // 对于透明的画布，使用白色作为底色
         if opaqueCanvas == false {
