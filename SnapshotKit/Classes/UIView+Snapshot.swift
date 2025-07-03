@@ -63,8 +63,11 @@ extension UIView: SnapshotKitProtocol {
 //
 //        return image
         
-        
-        let contentSize = CGSize(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
+        let contentSize = CGSize(
+            width: floor(croppingRect.size.width),
+            height: floor(croppingRect.size.height)
+        )
+
         UIGraphicsBeginImageContextWithOptions(contentSize, opaqueCanvas, 0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -78,11 +81,11 @@ extension UIView: SnapshotKitProtocol {
         context.setFillColor(backgroundColor.cgColor)
         context.fill(drawRect)
 
-        // 偏移坐标，确保渲染正确区域
+        // 将坐标系偏移，让内容正确对齐
         context.translateBy(x: -croppingRect.origin.x, y: -croppingRect.origin.y)
 
-        // 使用 layer.render 或 drawHierarchy 根据实际情况选择
-        self.layer.render(in: context)
+        // 渲染视图
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
 
         context.restoreGState()
 
