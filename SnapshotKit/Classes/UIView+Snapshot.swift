@@ -37,6 +37,9 @@ extension UIView: SnapshotKitProtocol {
         if opaqueCanvas == false {
             backgroundColor = UIColor.white
         }
+        //ls add
+        backgroundColor = UIColor.white
+
         let contentSize = CGSize.init(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
         UIGraphicsBeginImageContextWithOptions(contentSize, opaqueCanvas, 0)
 
