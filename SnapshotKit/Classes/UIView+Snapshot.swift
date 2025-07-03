@@ -42,7 +42,29 @@ extension UIView: SnapshotKitProtocol {
             backgroundColor = UIColor.white
         }
 
-        let contentSize = CGSize.init(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
+//        let contentSize = CGSize.init(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
+//        UIGraphicsBeginImageContextWithOptions(contentSize, opaqueCanvas, 0)
+//
+//        guard let context = UIGraphicsGetCurrentContext() else {
+//            return nil
+//        }
+//
+//        context.saveGState()
+//        context.clear(croppingRect)
+//        context.setFillColor(backgroundColor.cgColor)
+//        context.fill(croppingRect)
+//        context.translateBy(x: -croppingRect.origin.x, y: -croppingRect.origin.y)
+////        self.layer.render(in: context)
+//        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+//        context.restoreGState()
+//
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//
+//        return image
+        
+        
+        let contentSize = CGSize(width: floor(croppingRect.size.width), height: floor(croppingRect.size.height))
         UIGraphicsBeginImageContextWithOptions(contentSize, opaqueCanvas, 0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -50,11 +72,18 @@ extension UIView: SnapshotKitProtocol {
         }
 
         context.saveGState()
-        context.clear(croppingRect)
+
+        let drawRect = CGRect(origin: .zero, size: contentSize)
+        context.clear(drawRect)
         context.setFillColor(backgroundColor.cgColor)
-        context.fill(croppingRect)
+        context.fill(drawRect)
+
+        // 偏移坐标，确保渲染正确区域
         context.translateBy(x: -croppingRect.origin.x, y: -croppingRect.origin.y)
+
+        // 使用 layer.render 或 drawHierarchy 根据实际情况选择
         self.layer.render(in: context)
+
         context.restoreGState()
 
         let image = UIGraphicsGetImageFromCurrentImageContext()
